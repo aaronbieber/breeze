@@ -25,17 +25,23 @@ class Request {
 	public function __construct() {
 		global $router;
 
-		$destination = $router->find($_GET['pp_path']);
-		if(!$destination) {
-			throw new Exception('There is no route that matches '.$_GET['pp_path'].'.');
-		} else {
-			$controller = $destination['controller'];
-			$action = $destination['action'];
-			$path_params = $destination['params'];
-		}
-
 		// Load the configuration options
 		$this->loadConfig();
+
+		$path_params = array();
+		if(strlen($_GET['pp_path'])) {
+			$destination = $router->find($_GET['pp_path']);
+			if(!$destination) {
+				throw new Exception('There is no route that matches '.$_GET['pp_path'].'.');
+			} else {
+				$controller = $destination['controller'];
+				$action = $destination['action'];
+				$path_params = $destination['params'];
+			}
+		} else {
+			$controller = $this->_settings['default_controller'];
+			$action = $this->_settings['default_action'];
+		}
 
 		// Extract out the controller variable
 		// TODO: Remove this when the path-based routes are working.
@@ -82,6 +88,8 @@ class Request {
 			$this->_settings['action_variable'] = 'pp_action';
 	}
 
+	// TODO: This probably won't be necessary once the path-based routes are
+	// working properly.
 	private function calculateController() {
 		$controller = '';
 
@@ -96,6 +104,8 @@ class Request {
 		return $controller;
 	}
 
+	// TODO: This probably won't be necessary once the path-based routes are
+	// working properly.
 	private function calculateAction() {
 		$action = '';
 
