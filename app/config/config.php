@@ -23,7 +23,7 @@ $GLOBALS['errors_stop'] = array();					// Errors that necessitate stopping furth
 $_SERVER['environment'] = 'development';			// Which environment we're currently in
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/lib/common/helpers.php';			// Common helper functions
-require_once $_SERVER['DOCUMENT_ROOT'] . '/config/database.php';			// DB connection
+//require_once $_SERVER['DOCUMENT_ROOT'] . '/config/database.php';			// DB connection
 require_once $_SERVER['DOCUMENT_ROOT'] . '/lib/framework/framework.php';	// Framework for this whole shebang
-require_once $_SERVER['DOCUMENT_ROOT'] . '/config/session.php';				// Session manipulation
+//require_once $_SERVER['DOCUMENT_ROOT'] . '/config/session.php';				// Session manipulation
 ?>
