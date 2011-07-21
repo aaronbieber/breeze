@@ -18,12 +18,6 @@
 // Basic configuration prerequisites
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config/config.php';
 
-// Page header
-//require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/header.php';
-
 // Run the controller/action they want
 $request->controller->{$request->action}();
-
-// Page footer
-//require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/footer.php';
 ?>
