@@ -23,36 +23,8 @@
  * available to the action.
  */
 $router->add_route(
-	'user/$name/view',
-	array(	'controller' => 'user',
-			'action' => 'view'
-	)
-);
-
-$router->add_route(
-	'user/$name/update',
-	array(	'controller' => 'user',
-			'action' => 'update'
-	)
-);
-
-$router->add_route(
-	'user/edit/$name',
-	array(	'controller' => 'user',
-			'action' => 'edit'
-	)
-);
-
-$router->add_route(
-	'user/delete/$name',
-	array(	'controller' => 'user',
-			'action' => 'delete'
-	)
-);
-
-$router->add_route(
-	'item/view/$id',
-	array(	'controller' => 'item',
+	'index/view',
+	array(	'controller' => 'index',
 			'action' => 'view'
 	)
 );
