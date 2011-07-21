@@ -29,6 +29,7 @@ set_exception_handler('catch_exceptions');
 // Include all of the files that make this framework work
 require_once $_SERVER['DOCUMENT_ROOT'] . '/lib/framework/request.php';			// Request class
 require_once $_SERVER['DOCUMENT_ROOT'] . '/lib/framework/controller.php';		// Controller class
+require_once $_SERVER['DOCUMENT_ROOT'] . '/lib/framework/router.php';			// Router class
 require_once $_SERVER['DOCUMENT_ROOT'] . '/lib/smarty/Smarty.class.php';		// Smarty templating system
 
 // Include all models
@@ -43,8 +44,11 @@ $smarty->setCompileDir($_SERVER['DOCUMENT_ROOT'] . '/smarty/templates_c');
 $smarty->setCacheDir($_SERVER['DOCUMENT_ROOT'] . '/smarty/cache');
 $smarty->setConfigDir($_SERVER['DOCUMENT_ROOT'] . '/smarty/configs');
 
+// Load the routes.
+$router = new Router();
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/routes.php';
+
 // Load up the request. During the instantiation, the request object will read a configuration file to determine where the data it uses is stored,
 // and then parse through those data variables and populate the object as needed.
 $request = new Request();
-
 ?>

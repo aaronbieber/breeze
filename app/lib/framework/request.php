@@ -23,14 +23,28 @@ class Request {
 	private $_params = array();
 
 	public function __construct() {
+		global $router;
+
+		$destination = $router->find($_GET['pp_path']);
+		if(!$destination) {
+			throw new Exception('There is no route that matches '.$_GET['pp_path'].'.');
+		} else {
+			$controller = $destination['controller'];
+			$action = $destination['action'];
+			$path_params = $destination['params'];
+		}
+
 		// Load the configuration options
 		$this->loadConfig();
 
 		// Extract out the controller variable
-		$controller = $this->calculateController();
+		// TODO: Remove this when the path-based routes are working.
+		//$controller = $this->calculateController();
 		
 		// Extract out the action variable
-		$action = $this->calculateAction();
+		// TODO: Remove this when the path-based routes are working.
+		//$controller = $this->calculateController();
+		//$action = $this->calculateAction();
 
 		// Try to read in the controller. If it's not available, error.
 		if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/controllers/' . $controller . '.php')) {
@@ -38,7 +52,7 @@ class Request {
 		// If it is available, instantiate it with the desired action
 		} else {
 			// Populate the $this->_params data
-			$this->calculateParams();
+			$this->calculateParams($path_params);
 
 			// Record the action name
 			$this->_action = $action;
@@ -96,14 +110,16 @@ class Request {
 		return $action;
 	}
 
-	private function calculateParams() {
+	private function calculateParams($path_params) {
 		foreach(array_merge($_GET, $_POST) as $key => $value) {
 			if(		$key != $this->_settings['controller_variable']
 				&&	$key != $this->_settings['action_variable']
+				&&	$key != $this->_settings['path_variable']
 			) {
 				$this->_params[$key] = trim($value);
 			}
 		}
+		$this->_params = array_merge($this->_params, $path_params);
 	}
 
 	public function __get($name) {
