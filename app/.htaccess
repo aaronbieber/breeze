@@ -1,0 +1,27 @@
+RewriteEngine On
+
+# Cascade of routes to handle specific cases
+
+# If the path typed in corresponds to an actual, existing file... Don't rewrite anything.
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^(.*)$ $1																				[QSA,L]
+
+RewriteRule ^([^/]+)/([^/]+)/?$				/index.php?pp_controller=$1&pp_action=$2				[QSA,L]
+
+RewriteRule ^(item)/(view)/([^/]+)/?$		/index.php?pp_controller=$1&pp_action=$2&item=$3		[QSA,L]
+
+# RewriteRule ^.*$ index.php?pp_controller=home&pp_action=view										[QSA,L]
+
+# If what was typed in is not a real file, try to match it to our "routes."
+# RewriteRule ^item/([^/]+)/([^/]+)/?$		/item/$2/index.php?item=$1								[QSA,L]
+# RewriteRule ^user/([^/]+)/([^/]+)/?$		/user/$2/index.php?username=$1							[QSA,L]
+
+php_value session.save_handler "user"
+php_value session.name "npxsess"
+php_value session.auto_start "false"
+php_value session.gc_maxlifetime "86400"
+php_value session.use_cookies "true"
+php_value session.use_only_cookies "true"
+php_value session.cookie_lifetime "86400"
+php_value session.hash_function "sha512"
+php_value session.hash_bits_per_character "4"
