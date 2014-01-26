@@ -1,16 +1,16 @@
 <?
 /* This file is part of Breeze.
- * 
+ *
  * Breeze is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Breeze is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Breeze.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,11 +28,11 @@ class Controller {
 		$controller = strtolower(preg_replace('/^(.+)Controller$/', '$1', get_class($this)));
 
 		// If there's a method with the name of the specified action, this controller is valid and can be constructed.
-		if(method_exists(get_class($this), $action)) {			
+		if(method_exists(get_class($this), $action)) {
 			$this->_controller = $controller;
 			$this->_action = $action;
 			$this->params = $params;
-		
+
 		// Otherwise, if the method doesn't exist, throw an error.
 		} else {
 			throw new Exception("Controller $controller does not have an action named: $action");
@@ -80,7 +80,7 @@ class Controller {
 		} else {
 			// If the normal view template doesn't exist, this is a fatal error.
 			throw new Exception("There is no view available for the $view action of the $this->_controller controller.");
-		}		
+		}
 
 		$smarty->assign(array(
 			$request->getSetting('scope_prefix').'request' => array(
@@ -89,7 +89,7 @@ class Controller {
 				'view' => $view_output
 			)
 		));
-	
+
 		// Attempt to find the layout template itself.
 		if(file_exists($_SERVER['DOCUMENT_ROOT'] . '/layouts/' . $layout . '.tpl')) {
 			$smarty->display($_SERVER['DOCUMENT_ROOT'] . '/layouts/' . $layout . '.tpl');
@@ -100,4 +100,3 @@ class Controller {
 
 	}
 }
-?>
